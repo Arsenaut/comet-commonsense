@@ -91,7 +91,7 @@ def set_sampler(opt, sampling_algorithm, data_loader):
 
 
 def get_atomic_sequence(input_event, model, sampler, data_loader, text_encoder, category):
-    if isinstance(category, list):
+    if isinstance(category, (list, tuple)):
         outputs = {}
         for cat in category:
             new_outputs = get_atomic_sequence(
@@ -162,7 +162,7 @@ def set_atomic_inputs(input_event, category, data_loader, text_encoder):
 
 
 def get_conceptnet_sequence(e1, model, sampler, data_loader, text_encoder, relation, force=False):
-    if isinstance(relation, list):
+    if isinstance(relation, (list, tuple)):
         outputs = {}
 
         for rel in relation:
@@ -262,7 +262,7 @@ def set_conceptnet_inputs_for_evaluation(input_event, relation, output,
 
 def evaluate_conceptnet_sequence(e1, model, data_loader,
                                  text_encoder, relation, e2, force=False):
-    if isinstance(relation, list):
+    if isinstance(relation, (list, tuple)):
         outputs = {}
 
         for rel in relation:
