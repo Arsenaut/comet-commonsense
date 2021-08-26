@@ -182,7 +182,7 @@ class BeamSampler(TopKSampler):
     def __init__(self, opt, data_loader, batch_mode=True, scorer=None):
         super(BeamSampler, self).__init__(opt, data_loader, batch_mode)
 
-        self.kill_mask = torch.ones(opt.eval.bs, opt.eval.bs).to(cfg.device) * 9000
+        self.kill_mask = torch.ones(opt.eval.bs, opt.eval.bs) * 9000
         self.kill_mask[:, 0] = 0
 
     def make_batch(self, X):
@@ -246,7 +246,7 @@ class BeamSampler(TopKSampler):
 
             # Compute masks and expand beam
             expanded_ended = ended.unsqueeze(1).repeat(1, self.opt.eval.bs)
-            hypothesis_mask = expanded_ended * self.kill_mask + (1 - expanded_ended)
+            hypothesis_mask = expanded_ended * self.kill_mask.to(device=cfg.device) + (1 - expanded_ended)
 
             paper_results = False
 
